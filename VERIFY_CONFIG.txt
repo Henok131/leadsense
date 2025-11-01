@@ -1,0 +1,15 @@
+Run these commands on your server to verify the configuration was saved correctly:
+
+```bash
+# Check what's in the actual file
+sudo cat /etc/nginx/sites-available/lead.asenaytech.com
+
+# Check if symlink exists
+sudo ls -la /etc/nginx/sites-enabled/ | grep lead
+
+# Verify NGINX actually reloaded with the new config
+sudo nginx -T 2>&1 | grep -A 20 "lead.asenaytech.com"
+```
+
+The problem is likely that when you typed "lead" as the filename in nano, it saved to the wrong file. You need to save it as `/etc/nginx/sites-available/lead.asenaytech.com`
+

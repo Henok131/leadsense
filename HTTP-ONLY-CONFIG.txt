@@ -1,0 +1,14 @@
+server {
+    listen 80;
+    server_name sales.asenaytech.com;
+
+    location /.well-known/acme-challenge/ {
+        alias /var/www/certbot/.well-known/acme-challenge/;
+    }
+
+    location / {
+        return 200 "Certificate setup in progress";
+        add_header Content-Type text/plain;
+    }
+}
+
