@@ -28,15 +28,30 @@ export default function Dashboard() {
 
   const fetchLeads = async () => {
     try {
+      console.log('🔄 Fetching leads from Supabase...')
       const { data, error } = await supabase
         .from('leads')
         .select('*')
         .order('created_at', { ascending: false })
 
-      if (error) throw error
+      if (error) {
+        console.error('❌ Supabase query error:', error)
+        console.error('Error details:', {
+          message: error.message,
+          details: error.details,
+          hint: error.hint,
+          code: error.code
+        })
+        // Still set empty array to prevent undefined errors
+        setLeads([])
+        return
+      }
+
+      console.log('✅ Fetched leads:', data?.length || 0, 'rows')
       setLeads(data || [])
     } catch (error) {
-      console.error('Error fetching leads:', error)
+      console.error('❌ Unexpected error fetching leads:', error)
+      setLeads([])
     } finally {
       setLoading(false)
     }

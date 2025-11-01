@@ -3,6 +3,7 @@ import NavBar from './components/NavBar'
 import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import Analytics from './pages/Analytics'
+import LeadDetailView from './pages/leads/LeadDetailView'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/analytics" element={<Analytics />} />
+            <Route path="/leads/:id" element={<LeadDetailView />} />
           </Routes>
         </div>
       </div>

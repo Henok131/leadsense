@@ -1,4 +1,5 @@
 import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import {
   X,
   User,
@@ -13,10 +14,13 @@ import {
   Hash,
   CheckCircle,
   XCircle,
+  Edit,
 } from 'lucide-react'
 import { getBadgeColor } from '../lib/helpers'
 
 export default function LeadDetailModal({ lead, onClose }) {
+  const navigate = useNavigate()
+
   // Handle Escape key press
   useEffect(() => {
     const handleEscape = (e) => {
@@ -346,7 +350,17 @@ export default function LeadDetailModal({ lead, onClose }) {
         </div>
 
         {/* Footer */}
-        <div className="flex items-center justify-end gap-3 p-6 border-t border-white/10">
+        <div className="flex items-center justify-between p-6 border-t border-white/10">
+          <button
+            onClick={() => {
+              onClose()
+              navigate(`/leads/${lead.id}`)
+            }}
+            className="flex items-center gap-2 px-5 py-2 gradient-bg text-white rounded-lg hover:opacity-90 transition-all duration-200 font-medium shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40"
+          >
+            <Edit className="w-4 h-4" />
+            Edit Lead
+          </button>
           <button
             onClick={onClose}
             className="px-6 py-2 bg-white/10 text-white rounded-lg hover:bg-white/20 transition-colors font-medium"

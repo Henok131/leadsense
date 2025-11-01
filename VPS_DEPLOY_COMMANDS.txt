@@ -1,0 +1,36 @@
+================================================================================
+🚀 QUICK DEPLOYMENT COMMANDS FOR VPS
+================================================================================
+
+After you push updates to GitHub, SSH into your VPS and run these commands:
+
+================================================================================
+
+COMPLETE DEPLOYMENT (Copy & Paste All At Once):
+================================================================================
+
+cd /var/www/lead.asenaytech.com && git pull origin main && npm install && npm run build && docker compose down && docker compose up -d
+
+================================================================================
+
+OR STEP BY STEP (If You Prefer):
+================================================================================
+
+cd /var/www/lead.asenaytech.com
+git pull origin main
+npm install
+npm run build
+docker compose down && docker compose up -d
+
+================================================================================
+
+VERIFY IT WORKED:
+================================================================================
+
+docker compose ps
+
+================================================================================
+
+That's it! Your site is updated at https://lead.asenaytech.com
+================================================================================
+
