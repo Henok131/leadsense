@@ -154,8 +154,6 @@ export default function Dashboard() {
       )
     }
 
-    console.log('🔍 Filtered leads:', result.length, 'from', leads.length, 'total')
-    console.log('🔍 Filter state:', { categoryFilter, searchQuery })
     return result
   }, [leads, categoryFilter, searchQuery])
 
