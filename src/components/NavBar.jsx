@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Home, BarChart3, Menu, X } from 'lucide-react'
+import { Home, BarChart3, Sparkles, Menu, X } from 'lucide-react'
 import { useState } from 'react'
 
 export default function NavBar() {
@@ -9,6 +9,7 @@ export default function NavBar() {
   const navItems = [
     { path: '/', label: 'Home', icon: Home },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
+    { path: '/analytics', label: 'Analytics', icon: Sparkles },
   ]
 
   const isActive = (path) => location.pathname === path

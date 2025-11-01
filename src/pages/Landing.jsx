@@ -3,6 +3,8 @@ import { useNavigate, useSearchParams } from 'react-router-dom'
 import { Sparkles, TrendingUp, Shield, Zap, CheckCircle, XCircle } from 'lucide-react'
 import LeadForm from '../components/LeadForm'
 import { supabase } from '../lib/supabaseClient'
+import { scoreLead } from '../lib/aiScorer'
+import { notifyLead } from '../lib/notify'
 
 export default function Landing() {
   const navigate = useNavigate()
@@ -43,6 +45,29 @@ export default function Landing() {
     setErrorMessage('')
 
     try {
+      // Call AI scoring with the lead message
+      console.log("🤖 Calling AI to score lead...")
+      let aiScore = { category: 'Cold', score: 0, tags: [] }
+      
+      try {
+        aiScore = await scoreLead(form.message || '')
+        console.log("✅ AI Score received:", {
+          score: aiScore.score,
+          category: aiScore.category,
+          tags: aiScore.tags
+        })
+      } catch (aiError) {
+        console.error("⚠️ AI scoring error, using defaults:", aiError)
+        // Continue with fallback values (already set above)
+      }
+
+      // Merge AI tags with form tags (avoid duplicates)
+      const formTags = Array.isArray(form.tags) ? form.tags : []
+      const aiTags = Array.isArray(aiScore.tags) ? aiScore.tags : []
+      const mergedTags = [...formTags, ...aiTags]
+      // Remove duplicates and empty strings
+      const uniqueTags = [...new Set(mergedTags.filter(tag => tag && tag.trim()))]
+
       const leadPayload = {
         name: form.name.trim(),
         email: form.email.trim(),
@@ -50,11 +75,12 @@ export default function Landing() {
         phone: form.phone || null,
         website: form.website || null,
         message: form.message || null,
-        tags: Array.isArray(form.tags) ? form.tags : [],
+        tags: uniqueTags,
         interest_category: form.interest_category || null,
 
-        score: parseInt(form.score) || 0,
-        category: ['Hot', 'Warm', 'Cold'].includes(form.category) ? form.category : 'Cold',
+        // Use AI scoring results (with validation)
+        score: typeof aiScore.score === 'number' ? aiScore.score : 0,
+        category: ['Hot', 'Warm', 'Cold'].includes(aiScore.category) ? aiScore.category : 'Cold',
         status: ['New', 'In Review', 'Contacted', 'Converted', 'Disqualified'].includes(form.status) ? form.status : 'New',
 
         feedback_rating: form.feedback_rating ? parseInt(form.feedback_rating) : null,
@@ -96,6 +122,16 @@ export default function Landing() {
         console.log("✅ Lead saved successfully")
         setSubmitStatus('success')
         alert("Lead submitted successfully!")
+        
+        // Send Slack notification for Hot leads (non-blocking)
+        if (leadPayload.category === 'Hot') {
+          try {
+            await notifyLead(leadPayload)
+            console.log("📣 Sent Slack alert for Hot lead")
+          } catch (notificationError) {
+            console.error("⚠️ Slack alert failed:", notificationError)
+          }
+        }
         
         // Navigate to dashboard after 2 seconds (loading state already stopped)
         setTimeout(() => {

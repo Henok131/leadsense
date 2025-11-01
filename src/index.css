@@ -10,15 +10,102 @@
 
 @layer components {
   .glass-card {
-    @apply bg-white/10 backdrop-blur-md border border-white/20 rounded-lg;
+    @apply bg-gradient-to-br from-white/10 via-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 rounded-2xl shadow-lg shadow-black/20 hover:shadow-xl hover:shadow-primary/10 transition-all duration-300;
+  }
+
+  .glass-card-premium {
+    @apply bg-gradient-to-br from-[#0e0e2e]/80 via-[#0a0a20]/60 to-[#050510]/40 backdrop-blur-2xl border border-white/10 rounded-2xl shadow-2xl shadow-primary/5 hover:shadow-primary/20 transition-all duration-300;
   }
 
   .gradient-text {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent font-extrabold tracking-tight;
   }
 
   .gradient-bg {
-    @apply bg-gradient-to-r from-primary via-secondary to-accent;
+    @apply bg-gradient-to-r from-primary via-secondary to-accent shadow-lg shadow-primary/30 hover:shadow-xl hover:shadow-primary/40 transition-all duration-300;
+  }
+
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+  }
+
+  .score-card-glow {
+    filter: drop-shadow(0 4px 12px rgba(59, 130, 246, 0.3));
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+@layer utilities {
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.3s ease-out;
+  }
+
+  .animate-fadeInUp {
+    animation: fadeInUp 0.4s ease-out;
+    animation-fill-mode: both;
+  }
+  
+  .animate-fadeInUp[style*="animationDelay"] {
+    animation: fadeInUp 0.4s ease-out;
+    animation-fill-mode: both;
+  }
+
+  .animate-shimmer {
+    animation: shimmer 2s infinite linear;
+    background: linear-gradient(
+      to right,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%
+    );
+    background-size: 1000px 100%;
+  }
+
+  .text-muted-foreground {
+    @apply text-gray-400;
   }
 }
 
