@@ -66,6 +66,7 @@ export default function Dashboard() {
     }, 30000)
 
     return () => clearInterval(interval)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   // Calculate stats with trend data
@@ -153,6 +154,8 @@ export default function Dashboard() {
       )
     }
 
+    console.log('🔍 Filtered leads:', result.length, 'from', leads.length, 'total')
+    console.log('🔍 Filter state:', { categoryFilter, searchQuery })
     return result
   }, [leads, categoryFilter, searchQuery])
 
