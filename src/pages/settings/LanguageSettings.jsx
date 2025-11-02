@@ -4,7 +4,7 @@
  */
 
 import { Globe } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import { getLanguages, getTimezones } from '../../lib/settings'
 
 export default function LanguageSettings({ language, setLanguage, timezone, setTimezone }) {

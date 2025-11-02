@@ -6,7 +6,7 @@
 
 import { useState, useEffect, useRef } from 'react'
 import { Save, Settings as SettingsIcon, Palette, Globe, Key, CreditCard, Shield, Sparkles, Bell, Download, ChevronDown, Check } from 'lucide-react'
-import { useTranslation } from 'react-i18next'
+// import { useTranslation } from 'react-i18next'
 import ThemeSettings from './ThemeSettings'
 import LanguageSettings from './LanguageSettings'
 import APIKeySettings from './APIKeySettings'
@@ -33,7 +33,15 @@ const TABS = [
 ]
 
 export default function Settings() {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
+  const t = (key) => {
+    const translations = {
+      'settings.title': 'Settings',
+      'settings.subtitle': 'Manage your preferences and configuration',
+      'settings.saved': 'Settings saved automatically!',
+    }
+    return translations[key] || key
+  }
   const isMobile = useIsMobile()
   const [activeTab, setActiveTab] = useState('theme')
   const [expandedSections, setExpandedSections] = useState(new Set(['theme']))
