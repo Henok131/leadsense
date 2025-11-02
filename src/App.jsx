@@ -37,6 +37,30 @@ function App() {
     Test: !!Test,
   })
   
+  // INLINE TEST - Direct JSX for /test route to bypass component import
+  const InlineTest = () => {
+    console.log('✅ InlineTest: Rendering inline JSX')
+    return (
+      <div className="min-h-screen bg-dark pt-20 pb-8 px-4">
+        <div className="max-w-7xl mx-auto">
+          <div className="glass-card-premium p-8 text-center">
+            <h1 className="text-5xl font-extrabold gradient-text mb-4">
+              ✅ INLINE TEST WORKS!
+            </h1>
+            <p className="text-xl text-white mb-4">
+              If you see this, routing works but component imports are failing
+            </p>
+            <div className="mt-8 space-y-4 text-left">
+              <p className="text-gray-300">This is rendered directly from App.jsx</p>
+              <p className="text-gray-300">No component import needed</p>
+              <p className="text-gray-300">If this shows, the route is working</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+  
   return (
     <ErrorBoundary>
       <Router>
@@ -99,12 +123,34 @@ function App() {
                   </div>
                 } 
               />
+              {/* INLINE TEST - No component import */}
               <Route 
                 path="/test" 
                 element={
                   <div>
-                    {console.log('✅ Test route matched')}
-                    <Test />
+                    {console.log('✅ Test route matched - using inline JSX')}
+                    <InlineTest />
+                  </div>
+                } 
+              />
+              {/* INLINE TEST FOR SETTINGS - Direct JSX */}
+              <Route 
+                path="/settings-inline" 
+                element={
+                  <div className="min-h-screen bg-dark pt-20 pb-8 px-4">
+                    <div className="max-w-7xl mx-auto">
+                      <div className="glass-card-premium p-8 text-center">
+                        <h1 className="text-5xl font-extrabold gradient-text mb-4">
+                          ✅ SETTINGS INLINE TEST
+                        </h1>
+                        <p className="text-xl text-white mb-4">
+                          This is rendered directly in App.jsx for Settings route
+                        </p>
+                        <p className="text-gray-400">
+                          If you see this, routing works. If Settings component doesn't work, there's an import/component error.
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 } 
               />
