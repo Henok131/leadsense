@@ -8,13 +8,13 @@ import { Globe } from 'lucide-react'
 import { getLanguages, getTimezones } from '../../lib/settings'
 
 export default function LanguageSettings({ language, setLanguage, timezone, setTimezone }) {
-  const { i18n } = useTranslation()
+  // const { i18n } = useTranslation()
   const languages = getLanguages()
   const timezones = getTimezones()
 
   const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage)
-    i18n.changeLanguage(newLanguage)
+    // i18n.changeLanguage(newLanguage)
     localStorage.setItem('language', newLanguage)
   }
 
