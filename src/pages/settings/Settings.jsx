@@ -149,9 +149,12 @@ export default function Settings() {
   }, [debouncedSettings, userId])
 
   const loadSettings = async () => {
+    console.log('🔍 Settings: loadSettings called, userId=', userId)
     try {
       setLoading(true)
+      console.log('🔍 Settings: Calling getUserSettings...')
       const settings = await getUserSettings(userId)
+      console.log('🔍 Settings: getUserSettings returned:', settings)
       
       if (settings) {
         setTheme(settings.theme || 'dark')
@@ -178,11 +181,16 @@ export default function Settings() {
         })
         setSessionTimeout(settings.session_timeout || 3600)
         setTwoFactorEnabled(settings.two_factor_enabled || false)
+      } else {
+        console.log('🔍 Settings: No settings returned, using defaults')
       }
+      console.log('🔍 Settings: Setting loading to false')
+      setLoading(false)
     } catch (error) {
-      console.error('Failed to load settings:', error)
+      console.error('❌ Settings: Failed to load settings:', error)
       // Use defaults on error
       const defaults = getDefaultSettings()
+      console.log('🔍 Settings: Using default settings:', defaults)
       setTheme(defaults.theme)
       setLanguage(defaults.language)
       setTimezone(defaults.timezone)
@@ -195,7 +203,9 @@ export default function Settings() {
       setNotificationsSettings(defaults.notifications_settings)
       setSessionTimeout(defaults.session_timeout)
       setTwoFactorEnabled(defaults.two_factor_enabled)
+      console.log('🔍 Settings: Defaults applied, setting loading to false')
     } finally {
+      console.log('🔍 Settings: Finally block - setting loading to false')
       setLoading(false)
     }
   }
