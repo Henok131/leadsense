@@ -9,6 +9,8 @@ import LeadPipeline from './pages/kanban/LeadPipeline'
 import ErrorBoundary from './components/ErrorBoundary'
 
 function App() {
+  console.log('📱 App.jsx: Component rendering, current path:', window.location.pathname)
+  
   return (
     <ErrorBoundary>
       <Router>

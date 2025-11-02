@@ -110,8 +110,14 @@ export default function Settings() {
 
   // Load settings on mount
   useEffect(() => {
+    console.log('Settings page: Component mounted, loading settings...')
     loadSettings()
   }, [])
+
+  // Debug: Log when loading state changes
+  useEffect(() => {
+    console.log('Settings page: Loading state changed to:', loading)
+  }, [loading])
 
   // Auto-save on debounced settings change
   useEffect(() => {
@@ -283,6 +289,8 @@ export default function Settings() {
 
   const activeTabInfo = TABS.find(tab => tab.id === activeTab)
   const ActiveIcon = activeTabInfo?.icon || SettingsIcon
+
+  console.log('Settings page: Rendering, loading=', loading, 'activeTab=', activeTab)
 
   return (
     <div className="min-h-screen bg-dark pt-20 pb-8">
