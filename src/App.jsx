@@ -10,6 +10,13 @@ import ErrorBoundary from './components/ErrorBoundary'
 
 function App() {
   console.log('📱 App.jsx: Component rendering, current path:', window.location.pathname)
+  console.log('📱 App.jsx: Settings component:', Settings)
+  console.log('📱 App.jsx: Dashboard component:', Dashboard)
+  
+  // Test render of Settings directly
+  if (window.location.pathname === '/settings') {
+    console.log('📱 App.jsx: Settings route matched!')
+  }
   
   return (
     <ErrorBoundary>
@@ -24,6 +31,8 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/pipeline" element={<LeadPipeline />} />
+              {/* Test route */}
+              <Route path="/test-settings" element={<Settings />} />
             </Routes>
           </ErrorBoundary>
         </div>
