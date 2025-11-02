@@ -7,12 +7,31 @@
     <title>Asenay LeadSense</title>
   </head>
   <body>
-    <div id="root"></div>
-    <!-- Inline diagnostic script -->
+    <div id="root">
+      <!-- Fallback content if React doesn't load -->
+      <div style="padding: 20px; color: white; background: #0b1020; min-height: 100vh;">
+        <h1>Loading LeadSense...</h1>
+        <p>If this message persists, check the browser console for errors.</p>
+      </div>
+    </div>
+    <!-- Inline diagnostic script - MUST execute first -->
     <script>
-      console.log('✅ HTML loaded, script execution works');
-      console.log('✅ Root element exists:', !!document.getElementById('root'));
-      console.log('✅ Current URL:', window.location.href);
+      (function() {
+        console.log('✅ HTML loaded, script execution works');
+        console.log('✅ Root element exists:', !!document.getElementById('root'));
+        console.log('✅ Current URL:', window.location.href);
+        console.log('✅ Document ready state:', document.readyState);
+        console.log('✅ User agent:', navigator.userAgent);
+        
+        // Check if module scripts are supported
+        try {
+          const script = document.createElement('script');
+          script.type = 'module';
+          console.log('✅ Module scripts supported:', !!script.type);
+        } catch(e) {
+          console.error('❌ Module scripts NOT supported:', e);
+        }
+      })();
     </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
