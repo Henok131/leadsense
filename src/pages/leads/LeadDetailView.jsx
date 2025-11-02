@@ -6,12 +6,14 @@
 
 import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
-import { ArrowLeft, AlertCircle } from 'lucide-react'
+import { ArrowLeft, AlertCircle, RefreshCw } from 'lucide-react'
 import { getLead, updateLead } from '../../lib/leads'
+import { scoreLead as rescoreLead } from '../../lib/aiScoring'
 import LeadDetailCard from '../../components/lead/LeadDetailCard'
 import LeadNotesPanel from '../../components/lead/LeadNotesPanel'
 import LeadActionsBar from '../../components/lead/LeadActionsBar'
 import CommentsPanel from '../../components/lead/CommentsPanel'
+import AIScoreDisplay from '../../components/lead/AIScoreDisplay'
 
 export default function LeadDetailView() {
   const { id } = useParams()
@@ -23,6 +25,7 @@ export default function LeadDetailView() {
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [error, setError] = useState(null)
+  const [rescoring, setRescoring] = useState(false)
 
   // Fetch lead on mount
   useEffect(() => {
@@ -197,6 +200,44 @@ export default function LeadDetailView() {
           <p className="text-red-300 text-sm">{error}</p>
         </div>
       )}
+
+      {/* AI Score Display */}
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg font-semibold text-white">AI Analysis</h2>
+          <button
+            onClick={async () => {
+              if (!lead || rescoring) return
+              setRescoring(true)
+              try {
+                const scoringResult = await rescoreLead(lead)
+                await updateLead(id, {
+                  ai_score: scoringResult.score,
+                  ai_reason: scoringResult.reason,
+                })
+                // Refresh lead data
+                const updatedLead = await getLead(id)
+                setLead(updatedLead)
+                setOriginalLead(updatedLead)
+              } catch (err) {
+                console.error('Failed to rescore lead:', err)
+              } finally {
+                setRescoring(false)
+              }
+            }}
+            disabled={rescoring}
+            className="flex items-center gap-2 px-3 py-1.5 text-sm bg-primary/20 text-primary rounded-lg hover:bg-primary/30 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <RefreshCw className={`w-4 h-4 ${rescoring ? 'animate-spin' : ''}`} />
+            {rescoring ? 'Rescoring...' : 'Rescore'}
+          </button>
+        </div>
+        <AIScoreDisplay
+          aiScore={lead.ai_score}
+          aiReason={lead.ai_reason}
+          isLoading={rescoring}
+        />
+      </div>
 
       {/* Lead Detail Card */}
       <div className="mb-6">
