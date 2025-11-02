@@ -204,12 +204,11 @@ export default function Analytics() {
   if (loading) {
     return (
       <div className="min-h-screen bg-dark pt-20 pb-8 flex items-center justify-center">
-          <div className="relative">
-            <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20"></div>
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary absolute top-0 left-0"></div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Sparkles className="w-6 h-6 text-primary animate-pulse" />
-            </div>
+        <div className="relative">
+          <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20"></div>
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary absolute top-0 left-0"></div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <Sparkles className="w-6 h-6 text-primary animate-pulse" />
           </div>
         </div>
       </div>
