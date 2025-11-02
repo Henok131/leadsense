@@ -31,8 +31,8 @@ export default function NotificationSettings({ notificationsSettings, setNotific
             <p className="text-xs text-gray-400">Receive weekly summary emails</p>
           </div>
           <NotificationToggle
-            value={notificationsSettings.weekly}
-            onChange={() => handleToggle('weekly')}
+            value={notificationsSettings.weekly_reports}
+            onChange={() => handleToggle('weekly_reports')}
           />
         </div>
 
@@ -59,8 +59,8 @@ export default function NotificationSettings({ notificationsSettings, setNotific
             <p className="text-xs text-gray-400">Receive AI-generated insights</p>
           </div>
           <NotificationToggle
-            value={notificationsSettings.summaries}
-            onChange={() => handleToggle('summaries')}
+            value={notificationsSettings.ai_emails}
+            onChange={() => handleToggle('ai_emails')}
           />
         </div>
       </div>

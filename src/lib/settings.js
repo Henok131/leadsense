@@ -101,9 +101,9 @@ export function getDefaultSettings() {
       style: 'concise',
     },
     notifications_settings: {
-      weekly: true,
-      reminders: false,
-      summaries: true,
+      weekly_reports: true,
+      reminders: true,
+      ai_emails: false,
     },
     session_timeout: 3600, // 1 hour in seconds
     two_factor_enabled: false,
@@ -130,15 +130,13 @@ export function detectTimezone() {
 export function getLanguages() {
   return [
     { code: 'en', name: 'English' },
-    { code: 'de', name: 'Deutsch' },
     { code: 'fr', name: 'Français' },
+    { code: 'de', name: 'Deutsch' },
     { code: 'es', name: 'Español' },
-    { code: 'it', name: 'Italiano' },
     { code: 'pt', name: 'Português' },
-    { code: 'nl', name: 'Nederlands' },
-    { code: 'ru', name: 'Русский' },
+    { code: 'ar', name: 'العربية' },
+    { code: 'zh', name: '中文 (简体)' },
     { code: 'ja', name: '日本語' },
-    { code: 'zh', name: '中文' },
   ]
 }
 

@@ -58,20 +58,28 @@ export default function AIPreferences({ aiPreferences, setAiPreferences }) {
 
         {/* Token Limit */}
         <div>
-          <label className="block text-sm font-medium text-white mb-2">
-            Token Limit
-          </label>
-          <select
+          <div className="flex items-center justify-between mb-2">
+            <label className="block text-sm font-medium text-white">
+              Token Limit per Request
+            </label>
+            <span className="text-sm font-bold text-primary">{aiPreferences.tokens}</span>
+          </div>
+          <input
+            type="range"
+            min="512"
+            max="8192"
+            step="512"
             value={aiPreferences.tokens}
             onChange={(e) => handleChange('tokens', parseInt(e.target.value))}
-            className="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          >
-            {TOKEN_LIMITS.map((limit) => (
-              <option key={limit} value={limit} className="bg-dark text-white">
-                {limit}
-              </option>
-            ))}
-          </select>
+            className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-primary"
+            style={{
+              background: `linear-gradient(to right, #78c8ff 0%, #78c8ff ${((aiPreferences.tokens - 512) / (8192 - 512)) * 100}%, rgba(255,255,255,0.1) ${((aiPreferences.tokens - 512) / (8192 - 512)) * 100}%, rgba(255,255,255,0.1) 100%)`
+            }}
+          />
+          <div className="flex justify-between text-xs text-gray-400 mt-1">
+            <span>512</span>
+            <span>8192</span>
+          </div>
         </div>
 
         {/* Prompt Style */}
