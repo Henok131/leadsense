@@ -97,6 +97,17 @@ export default function Settings() {
     two_factor_enabled: twoFactorEnabled,
   }, 1000)
 
+  // Add timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Settings page loading timeout, setting loading to false')
+        setLoading(false)
+      }
+    }, 5000) // 5 second timeout
+    return () => clearTimeout(timeout)
+  }, [loading])
+
   // Load settings on mount
   useEffect(() => {
     loadSettings()

@@ -43,6 +43,17 @@ export default function Analytics() {
     return () => clearInterval(interval)
   }, [])
 
+  // Add timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Analytics page loading timeout, setting loading to false')
+        setLoading(false)
+      }
+    }, 5000) // 5 second timeout
+    return () => clearTimeout(timeout)
+  }, [loading])
+
   // Generate score trends data (last 12 months)
   const scoreTrendsData = useMemo(() => {
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']

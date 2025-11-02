@@ -42,6 +42,17 @@ export default function Reports() {
     loadData()
   }, [])
 
+  // Add timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Reports page loading timeout, setting loading to false')
+        setLoading(false)
+      }
+    }, 5000) // 5 second timeout
+    return () => clearTimeout(timeout)
+  }, [loading])
+
   const loadData = async () => {
     setLoading(true)
     try {

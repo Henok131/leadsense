@@ -38,15 +38,33 @@ export default function LeadPipeline() {
     fetchLeads()
     
     // Subscribe to realtime updates
-    const subscription = subscribeLeads((payload) => {
-      console.log('📡 Realtime update:', payload.eventType)
-      fetchLeads()
-    })
+    try {
+      const subscription = subscribeLeads((payload) => {
+        console.log('📡 Realtime update:', payload.eventType)
+        fetchLeads()
+      })
 
-    return () => {
-      subscription.unsubscribe()
+      return () => {
+        if (subscription && subscription.unsubscribe) {
+          subscription.unsubscribe()
+        }
+      }
+    } catch (error) {
+      console.error('Failed to subscribe to leads:', error)
+      setLoading(false)
     }
   }, [])
+
+  // Add timeout to prevent infinite loading
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.warn('Pipeline page loading timeout, setting loading to false')
+        setLoading(false)
+      }
+    }, 5000) // 5 second timeout
+    return () => clearTimeout(timeout)
+  }, [loading])
 
   const fetchLeads = async () => {
     try {
