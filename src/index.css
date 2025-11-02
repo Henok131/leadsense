@@ -21,6 +21,10 @@
     @apply bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent;
   }
 
+  .gradient-bg {
+    @apply bg-gradient-to-r from-primary via-secondary to-accent;
+  }
+
   .scrollbar-hide {
     -ms-overflow-style: none;
     scrollbar-width: none;

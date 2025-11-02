@@ -11,9 +11,11 @@ export default {
         secondary: '#8aa3ff',
         accent: '#b084ff',
         dark: '#0b1020',
+        'muted-foreground': '#9ca3af',
       },
       backgroundImage: {
         'gradient-asenay': 'linear-gradient(135deg, #78c8ff 0%, #8aa3ff 50%, #b084ff 100%)',
+        'gradient-bg': 'linear-gradient(135deg, #78c8ff 0%, #8aa3ff 50%, #b084ff 100%)',
       },
     },
   },
