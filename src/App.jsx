@@ -4,6 +4,7 @@ import Landing from './pages/Landing'
 import Dashboard from './pages/Dashboard'
 import Analytics from './pages/Analytics'
 import LeadDetailView from './pages/leads/LeadDetailView'
+import LeadPipeline from './pages/kanban/LeadPipeline'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/pipeline" element={<LeadPipeline />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/leads/:id" element={<LeadDetailView />} />
           </Routes>
