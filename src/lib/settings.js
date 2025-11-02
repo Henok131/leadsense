@@ -92,6 +92,21 @@ export function getDefaultSettings() {
       openai: '',
     },
     notifications_enabled: true,
+    billing_email: '',
+    plan: 'Free',
+    auto_renew: false,
+    ai_preferences: {
+      model: 'gpt-4',
+      tokens: 1024,
+      style: 'concise',
+    },
+    notifications_settings: {
+      weekly: true,
+      reminders: false,
+      summaries: true,
+    },
+    session_timeout: 3600, // 1 hour in seconds
+    two_factor_enabled: false,
   }
 }
 
