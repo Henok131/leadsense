@@ -7,6 +7,7 @@ import Analytics from './pages/Analytics'
 import NavBar from './components/NavBar'
 import LeadPipeline from './pages/kanban/LeadPipeline'
 import ErrorBoundary from './components/ErrorBoundary'
+import Test from './pages/Test'
 
 function App() {
   console.log('📱 App.jsx: Component rendering, current path:', window.location.pathname)
@@ -31,6 +32,7 @@ function App() {
               <Route path="/settings" element={<Settings />} />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/pipeline" element={<LeadPipeline />} />
+              <Route path="/test" element={<Test />} />
             </Routes>
           </ErrorBoundary>
         </div>
