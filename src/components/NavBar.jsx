@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Home, BarChart3, Sparkles, Menu, X, Workflow } from 'lucide-react'
+import { Home, BarChart3, Sparkles, Menu, X, Workflow, FileText } from 'lucide-react'
 import { useState } from 'react'
 
 export default function NavBar() {
@@ -10,6 +10,7 @@ export default function NavBar() {
     { path: '/', label: 'Home', icon: Home },
     { path: '/dashboard', label: 'Dashboard', icon: BarChart3 },
     { path: '/pipeline', label: 'Pipeline', icon: Workflow },
+    { path: '/reports', label: 'Reports', icon: FileText },
     { path: '/analytics', label: 'Analytics', icon: Sparkles },
   ]
 

@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard'
 import Analytics from './pages/Analytics'
 import LeadDetailView from './pages/leads/LeadDetailView'
 import LeadPipeline from './pages/kanban/LeadPipeline'
+import Reports from './pages/reports/Reports'
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<Landing />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/pipeline" element={<LeadPipeline />} />
+            <Route path="/reports" element={<Reports />} />
             <Route path="/analytics" element={<Analytics />} />
             <Route path="/leads/:id" element={<LeadDetailView />} />
           </Routes>
