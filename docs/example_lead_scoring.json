@@ -1,0 +1,220 @@
+{
+  "example_lead_input": {
+    "id": "123e4567-e89b-12d3-a456-426614174000",
+    "name": "John Smith",
+    "email": "john.smith@acmecorp.com",
+    "company": "Acme Corporation Inc",
+    "job_title": "VP of Engineering",
+    "message": "We're looking for a solution ASAP and have budget approved. Can we schedule a call this week? Our team is ready to move forward quickly.",
+    "created_at": "2025-11-02T10:00:00Z"
+  },
+
+  "expected_output_ai_scoring": {
+    "success": true,
+    "lead_id": "123e4567-e89b-12d3-a456-426614174000",
+    "scoring_method": "ai",
+    "result": {
+      "score": 92,
+      "confidence": 0.95,
+      "segment": "Enterprise",
+      "next_action": "Assign to Sales",
+      "tags": [
+        "executive",
+        "high-intent",
+        "enterprise-email",
+        "urgent",
+        "budget-approved",
+        "decision-ready"
+      ],
+      "model_version": "1.0.0"
+    },
+    "database_update": {
+      "score": 92,
+      "confidence": 0.95,
+      "segment": "Enterprise",
+      "next_action": "Assign to Sales",
+      "tags": ["executive", "high-intent", "enterprise-email", "urgent", "budget-approved", "decision-ready"],
+      "model_version": "1.0.0",
+      "status": "scored",
+      "scored_at": "2025-11-02T10:00:01Z"
+    }
+  },
+
+  "expected_output_rule_based_fallback": {
+    "success": true,
+    "lead_id": "123e4567-e89b-12d3-a456-426614174000",
+    "scoring_method": "rule-based",
+    "result": {
+      "score": 80,
+      "confidence": 0.82,
+      "segment": "Enterprise",
+      "next_action": "Assign to Sales",
+      "tags": [
+        "enterprise-email",
+        "executive",
+        "high-intent",
+        "established-company",
+        "has-company",
+        "detailed-message"
+      ],
+      "model_version": "rule-based-fallback",
+      "reasoning": "Rule-based scoring: Enterprise email domain; Executive-level contact; High-intent keywords detected; Established company structure; Detailed message; "
+    },
+    "database_update": {
+      "score": 80,
+      "confidence": 0.82,
+      "segment": "Enterprise",
+      "next_action": "Assign to Sales",
+      "tags": ["enterprise-email", "executive", "high-intent", "established-company", "has-company", "detailed-message"],
+      "model_version": "rule-based-fallback",
+      "status": "scored",
+      "scored_at": "2025-11-02T10:00:01Z"
+    }
+  },
+
+  "example_low_score_lead": {
+    "input": {
+      "id": "223e4567-e89b-12d3-a456-426614174001",
+      "name": "Jane Doe",
+      "email": "jane@gmail.com",
+      "company": "Small Business",
+      "job_title": "Manager",
+      "message": "Hi, interested in learning more.",
+      "created_at": "2025-11-02T10:05:00Z"
+    },
+    "expected_output": {
+      "score": 35,
+      "confidence": 0.66,
+      "segment": "SMB",
+      "next_action": "Auto-Reply",
+      "tags": ["has-company", "standard-lead"],
+      "model_version": "rule-based-fallback"
+    }
+  },
+
+  "example_mid_market_lead": {
+    "input": {
+      "id": "323e4567-e89b-12d3-a456-426614174002",
+      "name": "Mike Johnson",
+      "email": "mike.johnson@midmarketco.com",
+      "company": "MidMarket Co LLC",
+      "job_title": "Director of Operations",
+      "message": "We're evaluating solutions for our Q1 initiative. Would like to learn about pricing and implementation timeline.",
+      "created_at": "2025-11-02T10:10:00Z"
+    },
+    "expected_output": {
+      "score": 65,
+      "confidence": 0.88,
+      "segment": "Mid-Market",
+      "next_action": "Schedule Call",
+      "tags": [
+        "enterprise-email",
+        "executive",
+        "established-company",
+        "has-company",
+        "detailed-message"
+      ],
+      "model_version": "1.0.0"
+    }
+  },
+
+  "example_error_scenario": {
+    "input": {
+      "id": "423e4567-e89b-12d3-a456-426614174003",
+      "name": "Test Lead",
+      "email": "test@example.com",
+      "company": "Test Corp",
+      "message": "Test message"
+    },
+    "ai_scoring_failure": {
+      "error": "OpenAI API error: Rate limit exceeded",
+      "fallback_used": true,
+      "rule_based_result": {
+        "score": 60,
+        "confidence": 0.66,
+        "segment": "Mid-Market",
+        "next_action": "Send Nurture Email",
+        "tags": ["enterprise-email", "has-company", "standard-lead"],
+        "model_version": "rule-based-fallback",
+        "reasoning": "Rule-based scoring: Enterprise email domain; Standard lead scoring applied."
+      }
+    }
+  },
+
+  "background_processing_response": {
+    "success": true,
+    "processed": 5,
+    "successful": 4,
+    "failed": 1,
+    "errors": [
+      "Lead 523e4567-e89b-12d3-a456-426614174004: OpenAI API error: Network timeout"
+    ]
+  },
+
+  "database_schema_example": {
+    "leads_table": {
+      "id": "123e4567-e89b-12d3-a456-426614174000",
+      "name": "John Smith",
+      "email": "john.smith@acmecorp.com",
+      "company": "Acme Corporation Inc",
+      "job_title": "VP of Engineering",
+      "message": "We're looking for a solution ASAP...",
+      
+      "score": 92,
+      "confidence": 0.95,
+      "segment": "Enterprise",
+      "next_action": "Assign to Sales",
+      "tags": ["executive", "high-intent", "enterprise-email", "urgent"],
+      "model_version": "1.0.0",
+      "status": "scored",
+      "scored_at": "2025-11-02T10:00:01Z",
+      
+      "retry_count": 0,
+      "last_error": null,
+      "last_retry_at": null,
+      
+      "created_at": "2025-11-02T10:00:00Z",
+      "updated_at": "2025-11-02T10:00:01Z"
+    },
+    
+    "lead_score_logs_table": {
+      "id": "723e4567-e89b-12d3-a456-426614174005",
+      "lead_id": "123e4567-e89b-12d3-a456-426614174000",
+      "status": "success",
+      "scoring_method": "ai",
+      "error_message": null,
+      "retry_count": 0,
+      "created_at": "2025-11-02T10:00:01Z"
+    }
+  },
+
+  "notes": {
+    "scoring_methods": {
+      "ai": "Uses OpenAI GPT-3.5-turbo for intelligent lead analysis",
+      "rule_based": "Falls back to rule-based scoring when AI is unavailable or fails"
+    },
+    "score_range": {
+      "min": 0,
+      "max": 100,
+      "description": "Higher scores indicate higher-quality leads"
+    },
+    "confidence_range": {
+      "min": 0.0,
+      "max": 1.0,
+      "description": "Higher confidence indicates more reliable scoring"
+    },
+    "segments": {
+      "Enterprise": "score >= 70, typically larger companies with higher budgets",
+      "Mid-Market": "score 50-69, medium-sized businesses",
+      "SMB": "score < 50, small to medium businesses"
+    },
+    "next_actions": {
+      "Assign to Sales": "High-value leads requiring immediate sales attention",
+      "Schedule Call": "Qualified leads worth a direct conversation",
+      "Send Nurture Email": "Leads that need more nurturing before sales engagement",
+      "Auto-Reply": "Lower-priority leads that can receive automated responses"
+    },
+    "tags": "Array of inferred topics that help categorize the lead (e.g., 'executive', 'high-intent', 'enterprise-email', 'urgent')"
+  }
+}
+
