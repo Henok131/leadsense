@@ -11,6 +11,7 @@ import { getLead, updateLead } from '../../lib/leads'
 import LeadDetailCard from '../../components/lead/LeadDetailCard'
 import LeadNotesPanel from '../../components/lead/LeadNotesPanel'
 import LeadActionsBar from '../../components/lead/LeadActionsBar'
+import CommentsPanel from '../../components/lead/CommentsPanel'
 
 export default function LeadDetailView() {
   const { id } = useParams()
@@ -208,6 +209,15 @@ export default function LeadDetailView() {
           notes={lead.internal_notes} 
           onChange={handleNotesChange}
           isLoading={saving}
+        />
+      </div>
+
+      {/* Comments Panel */}
+      <div className="mb-6">
+        <CommentsPanel 
+          leadId={id}
+          currentUserId="admin"
+          currentUserName="Admin"
         />
       </div>
 
