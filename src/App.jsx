@@ -28,11 +28,21 @@ function App() {
               <Route path="/" element={<Landing />} />
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/reports" element={<Reports />} />
-              <Route path="/settings" element={<Settings />} />
+              <Route path="/settings" element={
+                <div style={{ padding: '80px 20px 20px 20px', backgroundColor: '#0b1020', minHeight: '100vh', color: 'white' }}>
+                  <h1 style={{ fontSize: '48px', fontWeight: 'bold', color: '#78c8ff' }}>SETTINGS INLINE</h1>
+                  <p style={{ fontSize: '24px', color: '#ffffff' }}>✅ Settings working with inline JSX!</p>
+                </div>
+              } />
               <Route path="/analytics" element={<Analytics />} />
               <Route path="/pipeline" element={<LeadPipeline />} />
               {/* Test route */}
-              <Route path="/test-settings" element={<Settings />} />
+              <Route path="/test-settings" element={
+                <div style={{ padding: '80px 20px 20px 20px', backgroundColor: '#0b1020', minHeight: '100vh', color: 'white' }}>
+                  <h1 style={{ fontSize: '48px', fontWeight: 'bold', color: '#78c8ff' }}>TEST SETTINGS INLINE</h1>
+                  <p style={{ fontSize: '24px', color: '#ffffff' }}>✅ Test Settings working with inline JSX!</p>
+                </div>
+              } />
             </Routes>
           </ErrorBoundary>
         </div>
