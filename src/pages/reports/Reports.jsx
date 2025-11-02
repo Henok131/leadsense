@@ -81,7 +81,7 @@ export default function Reports() {
 
   if (loading) {
     return (
-      <div className="container max-w-7xl mx-auto px-4 py-8 flex items-center justify-center min-h-[60vh]">
+      <div className="min-h-screen bg-dark pt-20 pb-8 flex items-center justify-center">
         <div className="relative">
           <div className="animate-spin rounded-full h-16 w-16 border-4 border-primary/20"></div>
           <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-primary absolute top-0 left-0"></div>
@@ -94,7 +94,8 @@ export default function Reports() {
   }
 
   return (
-    <div className="container max-w-7xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-dark pt-20 pb-8">
+      <div className="container max-w-7xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-10">
         <button
@@ -210,6 +211,7 @@ export default function Reports() {
           revenueData={revenueData}
           sourceData={sourceData}
         />
+      </div>
       </div>
     </div>
   )

@@ -274,7 +274,8 @@ export default function Settings() {
   const ActiveIcon = activeTabInfo?.icon || SettingsIcon
 
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-8">
+    <div className="min-h-screen bg-dark pt-20 pb-8">
+      <div className="container max-w-6xl mx-auto px-4 py-8">
       {/* Toast Notification */}
       {showToast && (
         <div className="fixed top-20 left-1/2 -translate-x-1/2 z-50 p-4 rounded-lg bg-green-500/20 border border-green-500/50 text-green-400 flex items-center gap-3 shadow-lg animate-fadeIn">
@@ -481,6 +482,7 @@ export default function Settings() {
           </div>
         </>
       )}
+      </div>
     </div>
   )
 }
