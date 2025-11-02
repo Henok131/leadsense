@@ -5,10 +5,28 @@
 
 import { useState } from 'react'
 import { Settings as SettingsIcon, Save, CheckCircle } from 'lucide-react'
+import ThemeSettings from './ThemeSettings'
+import LanguageSettings from './LanguageSettings'
+import APIKeySettings from './APIKeySettings'
+import BillingSettings from './BillingSettings'
+import AIPreferences from './AIPreferences'
+import NotificationSettings from './NotificationSettings'
+import SecuritySettings from './SecuritySettings'
+import { getDefaultSettings } from '../../lib/settings'
 
 // Simple test first - verify base rendering works
 console.log('✅ Settings.jsx file loaded')
 console.log('✅ Settings component function exists')
+
+const TABS = [
+  { id: 'theme', label: 'Theme', icon: '🎨' },
+  { id: 'language', label: 'Language', icon: '🌍' },
+  { id: 'api', label: 'API Keys', icon: '🔑' },
+  { id: 'billing', label: 'Billing', icon: '💳' },
+  { id: 'ai', label: 'AI Preferences', icon: '✨' },
+  { id: 'notifications', label: 'Notifications', icon: '🔔' },
+  { id: 'security', label: 'Security', icon: '🛡️' },
+]
 
 export default function Settings() {
   console.log('✅ Settings component function called - rendering started')
@@ -19,59 +37,6 @@ export default function Settings() {
     const [saveSuccess, setSaveSuccess] = useState(false)
 
     console.log('✅ Settings component state initialized')
-
-    // Try to import sub-components conditionally to isolate errors
-    let ThemeSettings, LanguageSettings, APIKeySettings, BillingSettings, AIPreferences, NotificationSettings, SecuritySettings
-    let getDefaultSettings
-
-    try {
-      const settingsLib = require('../../lib/settings')
-      getDefaultSettings = settingsLib.getDefaultSettings
-      console.log('✅ getDefaultSettings imported')
-    } catch (e) {
-      console.error('❌ Error importing getDefaultSettings:', e)
-      // Fallback
-      getDefaultSettings = () => ({
-        theme: 'dark',
-        language: 'en',
-        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC',
-        api_keys: { slack: '', flowise: '', openai: '' },
-        billing_email: '',
-        plan: 'Free',
-        auto_renew: false,
-        ai_preferences: { model: 'gpt-4', tokens: 1024, style: 'concise' },
-        notifications_settings: { weekly_reports: true, reminders: true, ai_emails: false },
-        notifications_enabled: true,
-        session_timeout: 3600,
-        two_factor_enabled: false,
-      })
-    }
-
-    try {
-      ThemeSettings = require('./ThemeSettings').default
-      LanguageSettings = require('./LanguageSettings').default
-      APIKeySettings = require('./APIKeySettings').default
-      BillingSettings = require('./BillingSettings').default
-      AIPreferences = require('./AIPreferences').default
-      NotificationSettings = require('./NotificationSettings').default
-      SecuritySettings = require('./SecuritySettings').default
-      console.log('✅ All Settings sub-components imported')
-    } catch (e) {
-      console.error('❌ Error importing Settings sub-components:', e)
-      // Create fallback components
-      const FallbackComponent = ({ title }) => (
-        <div className="glass-card-premium p-6 animate-fadeInUp">
-          <p className="text-white">{title} component loading...</p>
-        </div>
-      )
-      ThemeSettings = () => <FallbackComponent title="Theme" />
-      LanguageSettings = () => <FallbackComponent title="Language" />
-      APIKeySettings = () => <FallbackComponent title="API Keys" />
-      BillingSettings = () => <FallbackComponent title="Billing" />
-      AIPreferences = () => <FallbackComponent title="AI Preferences" />
-      NotificationSettings = () => <FallbackComponent title="Notifications" />
-      SecuritySettings = () => <FallbackComponent title="Security" />
-    }
 
     // Load settings from localStorage or use defaults
     const loadSettings = () => {
@@ -134,16 +99,6 @@ export default function Settings() {
         setIsSaving(false)
       }
     }
-
-    const TABS = [
-      { id: 'theme', label: 'Theme', icon: '🎨' },
-      { id: 'language', label: 'Language', icon: '🌍' },
-      { id: 'api', label: 'API Keys', icon: '🔑' },
-      { id: 'billing', label: 'Billing', icon: '💳' },
-      { id: 'ai', label: 'AI Preferences', icon: '✨' },
-      { id: 'notifications', label: 'Notifications', icon: '🔔' },
-      { id: 'security', label: 'Security', icon: '🛡️' },
-    ]
 
     console.log('✅ Settings component about to render JSX')
 
