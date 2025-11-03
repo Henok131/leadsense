@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom'
 import Landing from './pages/Landing'
-import Dashboard from './pages/Dashboard'
+import Dashboard from './pages/dashboard'
 import Reports from './pages/reports/Reports'
 import Settings from './pages/settings/Settings'
 import Analytics from './pages/Analytics'
